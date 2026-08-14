@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://meccagecko.com/sitemap.xml
+Sitemap: https://www.meccagecko.com/sitemap.xml
