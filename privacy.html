@@ -25,21 +25,25 @@
   <main class="wrap section">
     <article class="legal">
       <h1>Privacy Policy</h1>
-      <p class="muted">Effective August 14, 2026 · Last updated August 14, 2026</p>
+      <p class="muted">Effective August 14, 2026 · Last updated September 11, 2026</p>
       <p>This policy covers the <strong>Mecca Gecko</strong> iOS/iPadOS app and the website at meccagecko.com, operated by <strong>Solution Sidekick LLC</strong> (“we”, “us”), 832 Kings Cross Way, Raleigh, NC 27615, USA. Contact: <a href="mailto:joseph@codecreations.net">joseph@codecreations.net</a>.</p>
 
       <h2>1. The short version</h2>
-      <p>We built a party game, not an ad network. We do not sell your personal information. We do not show third-party ads. Payments go through Apple. Multiplayer is peer-to-peer, so people in your match can see what you chose to share in that match (display name, painted gecko, voice if you turn it on).</p>
+      <p>We built a party game, not an ad network. We do not sell your personal information. We do not show third-party ads. Payments go through Apple. Multiplayer uses a player host, with an online relay for internet parties, so people in your match can see what you chose to share in that match (display name, painted gecko, voice if you turn it on).</p>
 
       <h2>2. Information we may have</h2>
       <ul>
         <li><strong>What you type in the game</strong> — display name, party codes, optional feedback.</li>
-        <li><strong>Gameplay in a match</strong> — paint, poses, positions. This lives with the host device for the session. We do not run a permanent world database of your hides.</li>
+        <li><strong>Gameplay in a match</strong> — paint, poses, positions. This is exchanged between player devices, passing through our relay for internet parties. We do not run a permanent world database of your hides.</li>
         <li><strong>Optional voice</strong> — if you allow the microphone, nearby / party voice is processed so others in the match can hear you. We do not record or store voice on our servers.</li>
-        <li><strong>Purchases</strong> — Upgrade ($5.99, one-time) is billed by Apple. Apple sends us a receipt / entitlement so the app can unlock content. We never see your full card number.</li>
+        <li><strong>Purchases</strong> — Optional characters, emotes, and consumable diamond packs are billed by Apple. Apple sends us a receipt / entitlement so the app can unlock content. We never see your full card number.</li>
+        <li><strong>Online parties</strong> — Google Cloud Run relays gameplay and voice traffic, and Firestore holds short-lived lobby listings (party name, player names, counts, map, code, and host network address). Service infrastructure may retain IP addresses, request metadata, and diagnostic logs. Public listings are visible to other players.</li>
+        <li><strong>Safety</strong> — a random installation credential authenticates your connection; its hash identifies your installation to the party and service. Saved blocks and voice mutes stay on your device. Player reports include installation identifiers, party code, a reason category, and timestamps; moderators can act on them. Reports do not record voice.</li>
+        <li><strong>Optional local replays</strong> — in versions that offer replays, recording is off until you enable it. A replay saves the match as seen by your device, including player display names, character appearances, paint, positions, poses, and tag events. It does not record your screen, microphone, or voice chat. Replay files stay in app storage unless you choose to export or share a video. Other players may also save or share replays of a match you join.</li>
+        <li><strong>Game Center</strong> — when you sign in, Apple processes your Game Center identity, eligible leaderboard scores, and achievement progress. Your Game Center profile and scores may be visible according to your Apple privacy settings. The app stores progress and pending reports locally to retry interrupted submissions.</li>
         <li><strong>Support email</strong> — if you write us, we keep the thread long enough to help you.</li>
         <li><strong>Diagnostics</strong> — if you have Apple Analytics / crash reporting enabled, we may receive crash logs and coarse device type so we can fix bugs.</li>
-        <li><strong>This website</strong> — GitHub Pages may log standard request metadata (IP, user agent) as part of hosting. We do not run our own tracking cookies or advertising pixels on this site.</li>
+        <li><strong>This website</strong> — GitHub Pages may log standard request metadata (IP, user agent) as part of hosting. This site loads fonts from Google Fonts, which receives your network request, including your IP address. We do not run our own tracking cookies or advertising pixels on this site.</li>
       </ul>
 
       <h2>3. What we do not do</h2>
@@ -52,30 +56,34 @@
 
       <h2>4. Who else sees data</h2>
       <ul>
-        <li><strong>Apple</strong> — App Store, TestFlight, In-App Purchases, optional crash analytics you enable on the device.</li>
-        <li><strong>Other players in your match</strong> — your display name, avatar, and voice if you opted in. Choose a display name you are comfortable sharing with friends.</li>
-        <li><strong>GitHub</strong> — hosts this website (GitHub Pages).</li>
+        <li><strong>Apple</strong> — App Store, TestFlight, In-App Purchases, Game Center, and optional crash analytics you enable on the device.</li>
+        <li><strong>Other players in your match</strong> — your display name, avatar, paint, movement, and voice if you opted in. Players may keep local gameplay replays and share exported videos. Choose a display name and paint you are comfortable sharing.</li>
+        <li><strong>Google Cloud</strong> — hosts the multiplayer relay, lobby registry, safety reports, and operational logs.</li>
+        <li><strong>GitHub</strong> — hosts this website (GitHub Pages). <strong>Google Fonts</strong> supplies the website fonts.</li>
       </ul>
       <p>We may disclose information if required by law or to protect people from harm.</p>
 
       <h2>5. Retention</h2>
-      <p>Match data is ephemeral on player devices. Support emails are kept until the issue is resolved, then deleted or archived only as needed for legal records. Purchase entitlements follow Apple’s records.</p>
+      <p>The relay forwards match traffic without a permanent match or voice recording. Lobby listings become stale after approximately 70 seconds without a host heartbeat; database cleanup runs separately. Safety reports carry a 90-day expiration target, but actual deletion depends on the deployed database cleanup configuration and may occur later. Enforcement records may remain while a restriction applies. Infrastructure logs and support correspondence may remain after a match ends; their retention depends on the service configuration and support or legal needs. Contact us to request deletion of information we hold. Purchase entitlements follow Apple’s records.</p>
+      <p>Local replay cleanup keeps up to three recent unpinned replays, subject to a 256 MB storage budget. Replays marked Keep and exported videos remain until you delete them or remove the app’s data. Deleting a replay does not delete an exported video, and deleting an in-app export does not remove a copy saved to Photos, Files, or shared with someone else. Other local saves remain until app data is removed.</p>
 
       <h2>6. Your choices</h2>
       <ul>
-        <li>Decline microphone access in iOS Settings.</li>
-        <li>Restore or manage Upgrade in your Apple ID subscriptions / purchase history (it is a non-consumable, not a subscription).</li>
+        <li>Decline microphone access in iOS Settings. Use Settings → General in the game to mute, report, or block a player.</li>
+        <li>Use Settings → Game → Replay recording → Record future matches to enable recording for future matches. Turning it off stops and discards the current recording. A red REC · REPLAY indicator appears while recording. Clip Studio lets you delete saved replays and in-app exported videos. Remove separately saved or shared copies in the destination app or service.</li>
+        <li>Manage Game Center sign-in and privacy in iOS Settings.</li>
+        <li>Restore Apple-purchased characters and emotes in Settings → General. Review purchases in your Apple Account purchase history; diamond packs are consumable and cannot be restored.</li>
         <li>Email <a href="mailto:joseph@codecreations.net">joseph@codecreations.net</a> to access, correct, or delete information we hold, or to object / request portability where those rights apply (including EEA/UK residents).</li>
       </ul>
 
       <h2>7. International visitors</h2>
-      <p>The app and site are operated from the United States. If you play from another country, your information may be processed in the US. We rely on the fact that this is a lightweight entertainment service and we minimize what we keep.</p>
+      <p>The app and site are operated from the United States. If you play from another country, your information may be processed in the US. Contact us if you need information about the service providers processing your information or wish to exercise applicable privacy rights.</p>
 
       <h2>8. California / similar US state laws</h2>
       <p>We do not sell or share personal information as those laws define “sale” or “share” for cross-context advertising. To exercise access or deletion rights, email us.</p>
 
       <h2>9. Changes</h2>
-      <p>If this policy changes in a material way, we will update the date at the top of this page. Continued use after that date means you accept the update.</p>
+      <p>If this policy changes in a material way, we will update the date at the top of this page. Where required, we will provide additional notice or request consent before a material change takes effect.</p>
 
       <h2>10. Contact</h2>
       <p>Solution Sidekick LLC<br/>832 Kings Cross Way<br/>Raleigh, NC 27615<br/>USA<br/><a href="mailto:joseph@codecreations.net">joseph@codecreations.net</a></p>
