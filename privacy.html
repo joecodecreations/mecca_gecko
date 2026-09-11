@@ -2,19 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
+  <meta name="theme-color" content="#100b1b"/>
+  <meta name="color-scheme" content="dark"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Privacy Policy — Mecca Gecko</title>
   <meta name="description" content="Privacy policy for the Mecca Gecko game and meccagecko.com."/>
   <link rel="icon" href="assets/icon.png"/>
-  <link rel="canonical" href="https://www.meccagecko.com/privacy"/>
+  <link rel="canonical" href="https://www.meccagecko.com/privacy.html"/>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Sour+Gummy:wght@800&display=swap"/>
-  <link rel="stylesheet" href="css/site.css"/>
+  <link rel="stylesheet" href="css/site.css?v=20260911-dark2"/>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="nav">
     <div class="wrap nav-inner">
-      <a class="brand" href="./"><img src="assets/icon.png" alt=""/>Mecca Gecko</a>
-      <nav class="nav-links">
+      <a class="brand" href="./"><img src="assets/brand.webp" width="46" height="46" alt=""/>Mecca Gecko</a>
+      <nav class="nav-links" aria-label="Main navigation">
         <a href="./">Home</a>
         <a href="support.html">Support</a>
         <a href="terms.html">Terms</a>
@@ -22,7 +25,7 @@
     </div>
   </header>
 
-  <main class="wrap section">
+  <main id="main" class="wrap section">
     <article class="legal">
       <h1>Privacy Policy</h1>
       <p class="muted">Effective August 14, 2026 · Last updated September 11, 2026</p>
@@ -64,7 +67,7 @@
       <p>We may disclose information if required by law or to protect people from harm.</p>
 
       <h2>5. Retention</h2>
-      <p>The relay forwards match traffic without a permanent match or voice recording. Lobby listings become stale after approximately 70 seconds without a host heartbeat; database cleanup runs separately. Safety reports carry a 90-day expiration target, but actual deletion depends on the deployed database cleanup configuration and may occur later. Enforcement records may remain while a restriction applies. Infrastructure logs and support correspondence may remain after a match ends; their retention depends on the service configuration and support or legal needs. Contact us to request deletion of information we hold. Purchase entitlements follow Apple’s records.</p>
+      <p>The relay forwards match traffic without a permanent match or voice recording. Lobby listings become stale after approximately 70 seconds without a host heartbeat; database cleanup runs separately. Safety reports are scheduled to expire after 90 days. Automatic database cleanup is enabled; deletion is asynchronous and may occur after expiration. Enforcement records may remain while a restriction applies. Infrastructure logs and support correspondence may remain after a match ends; standard Google Cloud operational logs are configured for 30 days, while required cloud audit logs have a 400-day retention period. Support correspondence is retained as needed to resolve requests or meet legal obligations. Contact us to request deletion of information we hold. Purchase entitlements follow Apple’s records.</p>
       <p>Local replay cleanup keeps up to three recent unpinned replays, subject to a 256 MB storage budget. Replays marked Keep and exported videos remain until you delete them or remove the app’s data. Deleting a replay does not delete an exported video, and deleting an in-app export does not remove a copy saved to Photos, Files, or shared with someone else. Other local saves remain until app data is removed.</p>
 
       <h2>6. Your choices</h2>
