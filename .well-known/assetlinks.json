@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.codecreations.meccagecko",
+    "sha256_cert_fingerprints": ["94:B8:F7:8E:3D:48:AD:67:5F:DF:DE:FB:79:7F:AB:2F:28:6A:7B:88:37:4C:A2:84:42:DF:6B:EB:9B:0D:28:2C"]
+  }
+}]

@@ -1,0 +1,9 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [{
+      "appID": "2534S3G9KA.com.codecreations.meccagecko",
+      "paths": ["/join.html", "/join/*"]
+    }]
+  }
+}
