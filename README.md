@@ -1,29 +1,55 @@
 # Mecca Gecko website
 
-Public marketing, support, purchase information, privacy, and terms for Mecca Gecko. Plain HTML/CSS hosted through the existing GitHub Pages custom domain at https://www.meccagecko.com.
+Public marketing, support, purchase information, privacy, terms and party-invite pages for Mecca Gecko. Plain HTML/CSS/JS hosted through GitHub Pages at https://www.meccagecko.com (keep `CNAME` and `.nojekyll`).
 
 ## Preview
 
 Run `python3 -m http.server 8766 --bind 127.0.0.1` from this directory, then open http://127.0.0.1:8766. No build or dependencies are required.
 
-## Content and launch
+## Current state (September 28, 2026 refresh)
 
-The September 11 refresh uses the game project's character/emote/map artwork and September 7 in-game captures. Artwork is identified separately from gameplay. WebP assets are resized delivery copies; originals remain in the private game repository. Existing social-preview artwork is preserved.
+- **Launch:** Mecca Gecko 0.2.0 is live on the App Store (id 6801449754, released September 26, 2026). The homepage, header and support FAQ link to `https://apps.apple.com/us/app/mecca-gecko/id6801449754`. Android is not published; do not advertise Google Play until it is.
+- **Content source of truth is the game repo** (`~/projects/mecca-gecko`): maps in `scripts/levels/map_catalog.gd`, characters in `scripts/meta/skins.gd`, emotes in `scripts/meta/emotes.gd`, powerups in `scripts/meta/powerups.gd`, diamond packs in `scripts/meta/packs.gd`. The homepage roster (34 characters: 22 hiders, 12 seekers) and emote list (11) were generated from those catalogs. A few catalog blurbs that read as developer notes are overridden on the site only.
+- **Modes:** Hide and Paint, Prop Hunt, Red vs Blue and Infection. Mini games (Neon Rally, Prism Breaker, Star Dodge) are for seekers during the hide phase.
+- **Features called out:** invite links (`join.html`), locked rooms with a 4-digit PIN, FILL: HUMANS ONLY, Game Clips/Clip Studio, Game Center, optional proximity voice.
+- **Prices:** the site gives in-game diamond costs and pack sizes, but no dollar prices. Apple bills localized prices shown in the app.
 
-The homepage intentionally says coming soon: Apple's public US lookup for app 6801449754 returned no results on September 11, 2026. When the listing is publicly available, update the homepage launch panel, header action, and support availability answer with the verified App Store link. Do not advertise a release date or purchase prices before confirmation.
+## Assets
 
-All launch maps are included. The retired map Upgrade is not sold. Keep `upgrade.html` as the purchase-information URL for compatibility. Direct Apple non-consumables and device-local diamond purchases have different restoration rules.
+All images are WebP delivery copies; originals stay in the game repo.
 
-Legal/support content was reconciled with the game source and existing September 11 privacy/release records. Operator details, rights clearance, final Apple privacy disclosures, and actual deletion behavior still require owner acceptance; this website update does not certify the game for release. Recheck disclosures if services or retention change.
+| Folder | Source |
+|---|---|
+| `assets/maps/<map>/` | Real in-game renders from `tools/map_review/map_review.tscn --quality=2` (Cinematic), captured Sept 28, 2026 after the Sept 27 map glow-up. `*-sm.webp` are 480px thumbnails. `waiting_room` is the `holding_area` lobby. |
+| `assets/characters/` | `assets/characters/<folder>/<folder>_card.png`, 360px, transparent |
+| `assets/emotes/` | `assets/ui/emotes/icon_<id>.png` |
+| `assets/loading/` | Loading-screen art, `assets/ui/loading/load_*.jpg` (promotional, not gameplay) |
+| `assets/posters/` | `assets/promo/ios/poster_*.png` |
+| `assets/modes/` | `assets/ui/modes/*.png` |
+| `assets/shots/` | App Store screenshots from `website/store/out/iphone_6_9/` |
+| `assets/og.jpg` | 1200×630 crop of `load_castle_party.jpg` |
+
+To refresh the map renders, from the game repo:
+
+```sh
+GODOT_NOFOCUS=1 godot --path . --audio-driver Dummy res://tools/map_review/map_review.tscn -- \
+  --map=<gecko_house|palm_island|castle_keep|conservatory|holding_area> --out=/abs/dir --tag=site --quality=2
+```
+
+## Party invites
+
+`join.html` plus `.well-known/apple-app-site-association` and `.well-known/assetlinks.json` back the in-game COPY INVITE LINK button (`join.html?code=XXXXXX&invite=<token>` → `meccagecko://join/CODE`). Keep them in sync with `website/join.html` in the game repo. Do not rename or move these files.
+
+## Legal
+
+Privacy and terms text was not changed in the September 28 refresh. Recheck disclosures if services, invite tokens, locked rooms or retention change. Operator details and rights clearance still require owner acceptance.
 
 ## Publication
 
-Use the existing repository's GitHub Pages publishing flow. Publishing is authorized for this refresh: commit to `main` and push to the existing GitHub remote; GitHub Pages serves the root. Preserve CNAME and .nojekyll. Check homepage, support.html, privacy.html, terms.html, upgrade.html, and a nested missing URL after publication.
+Commit to `main` and push. GitHub Pages serves the root. After publishing, check the homepage, support.html, privacy.html, terms.html, upgrade.html, join.html?code=ABCDEF and a missing URL. Cache-version `css/site.css` and `js/site.js` (`?v=YYYYMMDD`) on every release.
 
 ## Verification
 
-Check all local image/link/fragment targets and page titles. Review desktop and 390px mobile layouts, keyboard focus, FAQ expansion, screenshot links, and reduced-motion support. Cache-version the shared CSS when releasing updates.
+Check all local image/link/fragment targets and page titles. Review desktop and 390px mobile layouts, keyboard focus, roster tabs (arrow keys), FAQ expansion, the screenshot viewer and reduced motion.
 
-Reference guidance: [Apple restore purchases](https://support.apple.com/en-us/108096), [Apple refunds](https://support.apple.com/en-us/118223), and [Firestore asynchronous TTL deletion](https://firebase.google.com/docs/firestore/ttl).
-
-Dark-theme refresh: heroes use the game’s `assets/ui/loading/load_standoff.jpg`, `load_seeker_squad.jpg`, and `load_toy_shelf.jpg`. Map images use real game captures from the house gameplay capture, Palm village review, Castle medieval hall review, and Conservatory orangery review. Loading artwork is decorative promotional art, distinct from map/gameplay captures.
+Reference guidance: [Apple restore purchases](https://support.apple.com/en-us/108096), [Apple refunds](https://support.apple.com/en-us/118223).

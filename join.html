@@ -7,11 +7,12 @@
   <meta name="description" content="Your friend invited you to play Mecca Gecko. Open your invite to get the party code."/>
   <meta property="og:title" content="Join my Mecca Gecko party"/>
   <meta property="og:description" content="Grab the party code and come play!"/>
-  <meta property="og:image" content="https://www.meccagecko.com/assets/hero.jpg"/>
+  <meta property="og:image" content="https://www.meccagecko.com/assets/og.jpg"/>
   <meta name="robots" content="noindex"/>
   <meta name="apple-itunes-app" content="app-id=6801449754"/>
   <link rel="icon" href="assets/icon.png"/>
-  <link rel="stylesheet" href="css/site.css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Sour+Gummy:wght@800&display=swap"/>
+  <link rel="stylesheet" href="css/site.css?v=20260928"/>
   <style>
     #party-code { display: block; font-size: clamp(2rem, 10vw, 4rem); letter-spacing: .12em; margin: 1rem 0; user-select: all; }
     button { cursor: pointer; font: inherit; }
@@ -21,7 +22,7 @@
 </head>
 <body>
   <header class="nav"><div class="wrap nav-inner">
-    <a class="brand" href="./"><img src="assets/icon.png" alt=""/>Mecca Gecko</a>
+    <a class="brand" href="./"><img src="assets/brand.webp" width="46" height="46" alt=""/>Mecca Gecko</a>
   </div></header>
   <main class="wrap section"><article class="prose">
     <h1>You're invited!</h1>
@@ -36,7 +37,7 @@
       <p id="browser-help">If your social app keeps you here, use its browser menu to open this page in Safari or Chrome, then tap Open Mecca Gecko. Older game versions may need the code below.</p>
       <p id="copy-status" role="status" aria-live="polite"></p>
       <h2>Or join with the code</h2>
-      <p>Open Mecca Gecko, choose <strong>PLAY ONLINE</strong>, then paste or type this code into the party code field and tap <strong>JOIN</strong>.</p>
+      <p>Open Mecca Gecko, choose <strong>PLAY ONLINE</strong>, then paste or type this code into the party code field and tap <strong>JOIN</strong>. Locked rooms also need the host’s four-digit PIN when joining by code. Use the invite link to join without the PIN.</p>
       <p>Keep the game open while you play together. If the party has ended, ask your friend for a fresh invite.</p>
     </section>
     <noscript><p>The party code is the six characters after <strong>code=</strong> in your invite link. Enter it in Mecca Gecko under PLAY ONLINE.</p></noscript>
@@ -49,11 +50,13 @@
       document.getElementById('message').textContent = 'Your friend is waiting. Here is your party code:';
       document.getElementById('party-code').textContent = code;
       document.getElementById('invite').hidden = false;
-      const inviteURL = 'https://www.meccagecko.com/join.html?code=' + code;
-      const appURL = 'meccagecko://join/' + code;
+      const rawToken = new URLSearchParams(window.location.search).get('invite') || '';
+      const token = /^[a-f0-9]{64}$/.test(rawToken) ? rawToken : '';
+      const inviteURL = 'https://www.meccagecko.com/join.html?code=' + code + (token ? '&invite=' + token : '');
+      const appURL = 'meccagecko://join/' + code + (token ? '?invite=' + token : '');
       const openGame = document.getElementById('open-game');
       openGame.href = /Android/i.test(navigator.userAgent)
-        ? 'intent://join/' + code + '#Intent;scheme=meccagecko;package=com.codecreations.meccagecko;S.browser_fallback_url=' + encodeURIComponent(inviteURL + '&open=failed') + ';end'
+        ? 'intent://join/' + code + (token ? '?invite=' + token : '') + '#Intent;scheme=meccagecko;package=com.codecreations.meccagecko;S.browser_fallback_url=' + encodeURIComponent(inviteURL + '&open=failed') + ';end'
         : appURL;
       document.querySelector('meta[name="apple-itunes-app"]').content = 'app-id=6801449754, app-argument=' + inviteURL;
       document.getElementById('share').addEventListener('click', async () => {

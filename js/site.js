@@ -1,5 +1,5 @@
 (() => {
-  const links = document.querySelectorAll('a.screenshot');
+  const links = document.querySelectorAll('a.screenshot, a[data-view]');
   if (!links.length || typeof HTMLDialogElement === 'undefined') return;
   const dialog = document.createElement('dialog');
   dialog.className = 'image-viewer';
@@ -16,7 +16,7 @@
       event.preventDefault();
       opener = link;
       photo.src = link.href;
-      photo.alt = link.querySelector('img').alt;
+      photo.alt = link.dataset.caption || link.querySelector('img').alt;
       caption.textContent = photo.alt;
       oldOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
@@ -33,4 +33,29 @@
     opener?.focus({ preventScroll: true });
     photo.removeAttribute('src');
   });
+})();
+
+(() => {
+  const tabs = document.querySelectorAll('.roster-tabs [role="tab"]');
+  if (!tabs.length) return;
+  document.documentElement.classList.add('js');
+  document.querySelector('.roster-tabs').hidden = false;
+  const select = tab => {
+    tabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  };
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => select(tab));
+    tab.addEventListener('keydown', event => {
+      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+      const next = tabs[(i + (event.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      select(next);
+      next.focus();
+    });
+  });
+  select(tabs[0]);
 })();
