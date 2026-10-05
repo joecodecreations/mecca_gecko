@@ -42,7 +42,7 @@ GODOT_NOFOCUS=1 godot --path . --audio-driver Dummy res://tools/map_review/map_r
 
 ## Legal
 
-Privacy and terms text was not changed in the September 28 refresh. Recheck disclosures if services, invite tokens, locked rooms or retention change. Operator details and rights clearance still require owner acceptance.
+Every HTML page loads Google Analytics 4 (`G-GZG6MN24PH`) immediately after the charset tag. `privacy.html` describes the cookies (`_ga` and `_ga_GZG6MN24PH`), what the reports are used for, and how to opt out. Change the tag and that notice together. Recheck disclosures if services, invite tokens, locked rooms or retention change. Operator details and rights clearance still require owner acceptance.
 
 ## Publication
 
