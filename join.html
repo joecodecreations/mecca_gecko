@@ -9,7 +9,9 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'G-GZG6MN24PH');
+    // Report the page without its query: ?code= and &invite= are a party code and a token that opens a locked
+    // room without its PIN, and Google Analytics would otherwise record the full URL.
+    gtag('config', 'G-GZG6MN24PH', { page_location: location.origin + location.pathname });
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Join a party — Mecca Gecko</title>
